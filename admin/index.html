@@ -55,4 +55,33 @@
         </div>
     </div>
 </body>
+<script src="./libs/http.js"></script>
+<script>
+    $(function(){
+        // 一进入到index页面就应该发送ajax请求获取用户信息
+        $.ajax({
+            type:'get',
+            url:window.BigNew.user_info,
+            success:function(res){
+                // console.log(res);
+                // 获取服务器返回的数据，使用这些数据去渲染页面的内容
+                $('.user_info img').attr('src',res.data.userPic);
+                $('.user_info span').html('欢迎&nbsp;&nbsp;'+res.data.nickname+'');
+                $('.user_center_link>img').attr('src',res.data.userPic);
+                
+            }
+        })
+
+        // 退出处理
+        // 1获取到退出的元素，注册点击事件
+        // 2点击到退出的时候，将token清除
+        $('.logout').on('click',function(){
+            // 清除token
+            window.localStorage.removeItem('token')
+            // 退出当前页面返回到登录页面
+            window.location.href = './login.html';
+        })
+    })
+
+</script>
 </html>
