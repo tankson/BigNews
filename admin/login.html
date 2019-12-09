@@ -93,6 +93,16 @@
           $('.modal-body').text(res.msg);
           $('#myModal').modal();
           // console.log(res);
+          if(res.code == 200){
+            // 登陆成功本地存储
+            window.localStorage.setItem('token',res.token)
+            // 登陆成功跳转到首页
+            $('#myModal').on('hidden.bs.modal',function(e){
+              // console.log('我已隐蔽，可以干活');
+              window.location.href = './index.html';
+              
+            })
+          }
           
         }
 
