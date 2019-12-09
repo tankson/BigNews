@@ -81,6 +81,23 @@
             // 退出当前页面返回到登录页面
             window.location.href = './login.html';
         })
+
+
+
+
+        $('div.level01').on('click',function(){
+            $(this).addClass('active').siblings().removeClass('active');
+            if($(this).index() == 1){
+                $('ul.level02').slideToggle();
+                $('ul.level02 li:eq(0) a')[0].click();
+                // 点击这个div的时候，让其后面的箭头符号进行旋转，我们通过添加一个类的方式来处理
+                $(this).find('b').toggleClass('rotate0');
+            }
+        })
+
+        $('ul.level02 li').on('click',function(){
+            $(this).addClass('active').siblings().removeClass('active');
+        })
     })
 
 </script>
