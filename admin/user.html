@@ -69,5 +69,45 @@
         </div>
     </div>
 </body>
+<script src="./libs/http.js"></script>
+<script>
+    $(function(){
+        // 发送ajax请求获取用户数据
+        $.get({
+            url:BigNew.user_detail,
+            success:function(res){
+                // console.log(res);
+                //  $('input.username').val(res.data.username);
+                //  $('input.nickname').val(res.data.nickname);
+                //  $('input.email').val(res.data.email);
+                //  $('input.password').val(res.data.password)
+                for(var key in res.data){
+                    $('input.' + key).val(res.data[key]);
+                    // console.log(key+"-------------"+res.data[key]);
+                }
+                $('img.user_pic').attr('src',res.data.userPic);
+            }
+        })
 
+
+
+         //给文件域注册一个change事件，当选择图片之后，在图片标签中展示我们 选择的图片
+        //用来处理用户选择图片的时候，有一个预览效果
+        $('#exampleInputFile').on('change',function(e){
+            console.log('文件域选择了文件');
+            console.log(this);
+            console.dir(this.files[0]);
+            // 图片对象
+            let imgFile = this.files[0];
+            let url = URL.createObjectURL(imgFile);
+            // console.log(url);
+            $('img.user_pic').attr('src',url); 
+        })
+
+
+
+
+    })
+
+</script>
 </html>
