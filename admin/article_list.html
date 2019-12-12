@@ -136,8 +136,11 @@
                             $('#pagination-demo').show();
                             $('#tips').hide();
                             callback(res)
-                        }else if(res.data.data.length == 0){
-                            // alert('亲，没有数据');
+                        }else if(res.data.totalPage  != 0 && res.data.data.length == 0 && res.data.totalPage == mypage -1){
+                            mypage -= 1;
+                            $('#pagination-demo').twbsPagination
+                            ('changeTotalPages',res.data.totalPage,mypage)
+                        }else{
                             $('#pagination-demo').hide();
                             $('#tips').show();
                         }
@@ -159,7 +162,8 @@
                     last: '尾页',
                     onPageClick: function (event, page) {
                         mypage = page;
-                        getData(mypage, null);
+                        getData(mypage, function(){});
+                        //传入一个空的回调函数是为了让第一次加载数据的时候不隐藏页码条
                     }
                 });
             })
@@ -206,11 +210,15 @@
                             id: artId
                         },
                         success: function(res) {
-                            // console.log(res);
+                            console.log(res);
                             // window.location.reload();
-                            getData(mypage,function(res){
-                                $('#pagination-demo').twbsPagination('changeTotalPages',res.data.totalPage,mypage)
-                            })
+                            if(res.code == 204){
+                                getData(mypage,function(res){
+                                    $('#pagination-demo').twbsPagination
+                                    ('changeTotalPages',res.data.totalPage,mypage)
+                                })
+                            }
+                           
                         }
                     })
                 }
