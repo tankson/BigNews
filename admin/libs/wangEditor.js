@@ -4670,5 +4670,5 @@ document.getElementsByTagName('HEAD').item(0).appendChild(style);
 var index = window.wangEditor || Editor;
 
 return index;
-// 
+
 })));
